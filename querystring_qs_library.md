@@ -35,3 +35,18 @@ console.log(str);
 
 ex) mode=dark&active=true&nums%5B0%5D=1&nums%5B1%5D=2&nums%5B2%5D=3
 ```
+
+2-3. 자바스크립트 객체 형태의 쿼리 스트링을 문자열로 변환(2) 옵션추가
+```javascript
+const str = qs.stringify(
+  {
+    mode: "dark",
+    active: "true",
+    nums: ["1", "2", "3"],
+  },
+  { arrayFormat: "repeat" }
+);
+console.log(str);
+
+ex) mode=dark&active=true&nums=1&nums=2&nums=3
+```
