@@ -15,8 +15,12 @@ node.js의 프레임워크인 express를 사용해서
 project/
 │
 ├── router.js
-├── controller.js
-├── dao.js
+├── controllers/
+│   └── userController.js
+├── services/
+│   └── userService.js
+├── daos/
+│   └── userDao.js
 ├── public/
 │   ├── css/
 │   │   └── styles.css
@@ -24,7 +28,6 @@ project/
 │   │   └── script.js
 │   └── img/
 │       └── logo.png
-├── service.js
 └── package.json
 ```
 
@@ -42,9 +45,8 @@ const port = '3000';
 /* 정적 파일 제공을 위한 미들웨어 설정 */
 app.use(express.static(path.join(__dirname, 'public')));
 
-/* 컨트롤러 함수를 라우트에 연결 */
-app.get('/users/:id', controller.getUser);
-app.post('/users', controller.createUser);
+/* 사용자 라우팅을 컨트롤러에게 위임 */
+app.use('/users', userController);
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
@@ -55,32 +57,39 @@ app.listen(port, () => {
 
 3) controller.js -> controller 로직을 정의.
 ```javascript
-const userService = require('./service');
+const express = require('express');
+const userService = require('../services/userService');
 
-exports.getUser = async (req, res) => {
-  try {
-    const user = await userService.getUser(req.params.id);
-    res.json(user);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-};
+const router = express.Router();
 
-exports.createUser = async (req, res) => {
-  try {
-    const newUser = await userService.createUser(req.body);
-    res.status(201).json(newUser);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-};
+/* 사용자 조회 라우트 */
+router.get('/:id', async (req, res) => {
+    try {
+        const user = await userService.getUser(req.params.id);
+        res.json(user);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
+/* 사용자 생성 라우트 */
+router.post('/', async (req, res) => {
+    try {
+        const newUser = await userService.createUser(req.body);
+        res.status(201).json(newUser);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
+module.exports = router;
 ```
 
 <br />
 
 4) service.js -> 비즈니스 로직을 구현한 서비스 레이어.
 ```javascript
-const userDao = require('./dao');
+const userDao = require('../daos/userDao');
 
 exports.getUser = async (userId) => {
   const user = await userDao.getUserById(userId);
