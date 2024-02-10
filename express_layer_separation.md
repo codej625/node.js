@@ -7,6 +7,14 @@ node.js의 프레임워크인 express를 사용해서
 백엔드를 구축할 수는 있지만,
 정해진 구조가 없으므로 레이어를 분리해주는 작업이 필요하다.
 ```
+<br />
+
+install command
+```
+npm install express
+npm install cors
+npm install dotenv
+```
 
 <br />
 
@@ -38,20 +46,24 @@ project/
 ```javascript
 const express = require('express');
 const path = require('path');
-const controller = require('./controllers/userController');
+const cors = require('cors');
+const userController = require('./controllers/userController');
 
 const app = express();
-const port = '3000';
-
-/* 정적 파일 제공을 위한 미들웨어 설정 */
-app.use(express.static(path.join(__dirname, 'public')));
-
-/* 사용자 라우팅을 컨트롤러에게 위임 */
-app.use('/users', userController);
+const port = process.env.PORT || 5000;
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
+
+/* 정적 파일 제공을 위한 미들웨어 설정 */
+app.use(express.static(path.join(__dirname, 'public')));
+
+/* CORS 미들웨어 추가 */
+app.use(cors());
+
+/* 사용자 라우팅을 컨트롤러에게 위임 */
+app.use('/user', userController);
 ```
 
 <br />
