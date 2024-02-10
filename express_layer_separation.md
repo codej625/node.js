@@ -21,6 +21,7 @@ project/
 │   └── userService.js
 ├── daos/
 │   └── userDao.js
+├── .env
 ├── public/
 │   ├── css/
 │   │   └── styles.css
@@ -109,14 +110,18 @@ exports.createUser = async (userData) => {
 5) userDao.js -> 데이터베이스와 상호 작용을 담당하는 DAO(Data Access Object) 로직을 정의.
 ```javascript
 const mysql = require('mysql');
+require('dotenv').config(); /* dotenv 라이브러리 사용 */
 
 /* MySQL 데이터베이스 연결 설정 */
-const db = mysql.createConnection({
-  host: 'localhost',
-  user: 'username',
-  password: 'password',
-  database: 'dbname',
-});
+const dbConfig = {
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASS,
+  database: process.env.DB_NAME,
+};
+
+/* MySQL 데이터베이스 연결 */
+const db = mysql.createConnection(dbConfig);
 
 /* 데이터베이스 연결 */
 db.connect((err) => {
@@ -140,6 +145,16 @@ exports.getUserById = async (userId) => {
 };
 
 /* ... 기타 다른 데이터베이스 작업 함수들 */
+```
+
+<br />
+
+6) .env -> dotenv 라이브러리에서 사용 되는 환경변수 파일
+```env
+DB_HOST=localhost
+DB_USER=root
+DB_PASS=password
+DB_NAME=dbname
 ```
 
 <br />
