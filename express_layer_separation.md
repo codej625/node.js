@@ -37,7 +37,7 @@ project/
 ```javascript
 const express = require('express');
 const path = require('path');
-const controller = require('./controller');
+const controller = require('./controllers/userController');
 
 const app = express();
 const port = '3000';
@@ -55,7 +55,7 @@ app.listen(port, () => {
 
 <br />
 
-3) controller.js -> controller 로직을 정의.
+3) userController.js -> controller 로직을 정의.
 ```javascript
 const express = require('express');
 const userService = require('../services/userService');
@@ -64,22 +64,22 @@ const router = express.Router();
 
 /* 사용자 조회 라우트 */
 router.get('/:id', async (req, res) => {
-    try {
-        const user = await userService.getUser(req.params.id);
-        res.json(user);
-    } catch (error) {
-        res.status(500).json({ message: error.message });
-    }
+  try {
+    const user = await userService.getUser(req.params.id);
+    res.json(user);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
 });
 
 /* 사용자 생성 라우트 */
 router.post('/', async (req, res) => {
-    try {
-        const newUser = await userService.createUser(req.body);
-        res.status(201).json(newUser);
-    } catch (error) {
-        res.status(500).json({ message: error.message });
-    }
+  try {
+    const newUser = await userService.createUser(req.body);
+    res.status(201).json(newUser);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
 });
 
 module.exports = router;
@@ -87,7 +87,7 @@ module.exports = router;
 
 <br />
 
-4) service.js -> 비즈니스 로직을 구현한 서비스 레이어.
+4) userService.js -> 비즈니스 로직을 구현한 서비스 레이어.
 ```javascript
 const userDao = require('../daos/userDao');
 
@@ -106,7 +106,7 @@ exports.createUser = async (userData) => {
 
 <br />
 
-5) dao.js -> 데이터베이스와 상호 작용을 담당하는 DAO(Data Access Object) 로직을 정의.
+5) userDao.js -> 데이터베이스와 상호 작용을 담당하는 DAO(Data Access Object) 로직을 정의.
 ```javascript
 const mysql = require('mysql');
 
