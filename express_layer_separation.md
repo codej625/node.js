@@ -51,7 +51,7 @@ npm install dotenv
 const express = require('express');
 const path = require('path');
 const cors = require('cors');
-const userController = require('./controllers/user-controller');
+const userController = require('./controller/user-controller');
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -75,7 +75,7 @@ app.use('/user', userController);
 3) user-controller.js -> controller 로직을 정의.
 ```javascript
 const express = require('express');
-const userService = require('../services/user-service');
+const userService = require('../service/user-service');
 
 const router = express.Router();
 
@@ -110,7 +110,7 @@ ex) user/123 이렇게 요청이 온다면 id의 값은 123이 된다.
 
 4) user-service.js -> 비즈니스 로직을 구현한 서비스 레이어.
 ```javascript
-const userDao = require('../daos/user-dao');
+const userDao = require('../dao/user-dao');
 
 exports.getUser = async (userId) => {
   const user = await userDao.getUserById(userId);
