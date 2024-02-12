@@ -60,6 +60,16 @@ app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
 
+/* root */
+app.get('/', (req, res) => {
+  try {
+    res.sendFile(path.join(__dirname, 'public', '{html-name}.html'));
+  } catch (error) {
+    console.error('GET 요청에 대한 처리 중 오류가 발생했습니다:', error);
+    res.status(500).send('서버 오류 발생');
+  }
+});
+
 /* 정적 파일 제공을 위한 미들웨어 설정 */
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -171,6 +181,10 @@ exports.getUserById = async (userId) => {
 
 6) .env -> dotenv 라이브러리에서 사용 되는 환경변수 파일
 ```env
+# Port
+PORT=8080
+
+# Database
 DB_HOST=localhost
 DB_USER=root
 DB_PASS=password
