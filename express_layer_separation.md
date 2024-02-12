@@ -23,11 +23,11 @@ npm install dotenv
 project/
 │
 ├── router.js
-├── controllers/
+├── controller/
 │   └── userController.js
-├── services/
+├── service/
 │   └── userService.js
-├── daos/
+├── dao/
 │   └── userDao.js
 ├── .env
 ├── public/
