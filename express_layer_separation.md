@@ -20,15 +20,15 @@ npm install dotenv
 
 1) 파일 구조
 ```
-project/
+{project-name}/
 │
 ├── router.js
 ├── controller/
-│   └── userController.js
+│   └── user-controller.js
 ├── service/
-│   └── userService.js
+│   └── user-service.js
 ├── dao/
-│   └── userDao.js
+│   └── user-dao.js
 ├── .env
 ├── public/
 │   ├── css/
@@ -47,7 +47,7 @@ project/
 const express = require('express');
 const path = require('path');
 const cors = require('cors');
-const userController = require('./controllers/userController');
+const userController = require('./controllers/user-controller');
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -68,10 +68,10 @@ app.use('/user', userController);
 
 <br />
 
-3) userController.js -> controller 로직을 정의.
+3) user-controller.js -> controller 로직을 정의.
 ```javascript
 const express = require('express');
-const userService = require('../services/userService');
+const userService = require('../services/user-service');
 
 const router = express.Router();
 
@@ -97,12 +97,16 @@ router.post('/', async (req, res) => {
 
 module.exports = router;
 ```
+```
+:id는 동적 할당을 의미한다.
+ex) user/123 이렇게 요청이 온다면 id의 값은 123이 된다.
+```
 
 <br />
 
-4) userService.js -> 비즈니스 로직을 구현한 서비스 레이어.
+4) user-service.js -> 비즈니스 로직을 구현한 서비스 레이어.
 ```javascript
-const userDao = require('../daos/userDao');
+const userDao = require('../daos/user-dao');
 
 exports.getUser = async (userId) => {
   const user = await userDao.getUserById(userId);
@@ -119,7 +123,7 @@ exports.createUser = async (userData) => {
 
 <br />
 
-5) userDao.js -> 데이터베이스와 상호 작용을 담당하는 DAO(Data Access Object) 로직을 정의.
+5) user-dao.js -> 데이터베이스와 상호 작용을 담당하는 DAO(Data Access Object) 로직을 정의.
 ```javascript
 const mysql = require('mysql');
 require('dotenv').config(); /* dotenv 라이브러리 사용 */
