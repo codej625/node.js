@@ -227,6 +227,7 @@ DB_HOST=localhost
 DB_USER=root
 DB_PASS=password
 DB_NAME=dbname
+DB_PORT=port
 ```
 
 <br />
