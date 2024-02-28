@@ -264,9 +264,9 @@ h1 {
 9) SQL
 ```sql
 ex) pg
-Database name -> data
+/* database -> data */
 
-Table ->
+/* table */ 
 CREATE TABLE users (
   id SERIAL PRIMARY KEY,
   name VARCHAR(100),
