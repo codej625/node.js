@@ -258,3 +258,18 @@ h1 {
 ```javascript
 /* 여러가지 이미지 파일 */
 ```
+
+<br />
+
+9) SQL
+```sql
+ex) pg
+Database name -> data
+
+Table ->
+CREATE TABLE users (
+  id SERIAL PRIMARY KEY,
+  name VARCHAR(100),
+  age INTEGER,
+  email VARCHAR(255)
+);
