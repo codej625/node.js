@@ -275,7 +275,7 @@ CREATE TABLE users (
 );
 
 /* dummy data */
-INSERT INTO example_table (name, age, email) VALUES 
+INSERT INTO users (name, age, email) VALUES 
 ('Noah Lee', 25, 'noah@example.com'),
 ('Emma Garcia', 22, 'emma@example.com'),
 ('Alexander Rodriguez', 27, 'alexander@example.com'),
