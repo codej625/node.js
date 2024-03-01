@@ -6,7 +6,7 @@ const app = express();
 const path = require('path');
 const userController = require('./controller/user-controller');
 
-const port = process.env.PORT || 8081;
+const port = process.env.PORT || 8080;
 app.listen(port, () => { console.log(`port: ${port}`);});
 
 app.use(express.static(path.join(__dirname, 'public')));
