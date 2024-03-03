@@ -20,6 +20,7 @@ npm install cors
 npm install dotenv
 npm install mysql
 npm install pg
+npm install figlet
 ```
 
 <br />
@@ -265,9 +266,9 @@ h1 {
 9) SQL
 ```sql
 ex) pg
-/* database -> data */
+/* database name -> data */
 
-/* table */ 
+/* table name */ 
 CREATE TABLE users (
   id SERIAL PRIMARY KEY,
   name VARCHAR(100),
@@ -323,3 +324,19 @@ INSERT INTO users (name, age, email) VALUES
 ('Grayson Johnson', 59, 'grayson@example.com'),
 ('Penelope Smith', 60, 'penelope@example.com'),
 ('Levi Garcia', 61, 'levi@example.com');
+```
+
+<br />
+
+10) ASCII ART
+```
+const figlet = require("figlet");
+
+figlet(`odej625 Server Port: ${port}`, function (err, data) {
+  if (err) {
+    console.dir(err);
+    return;
+  }
+  console.log(data);
+});
+```
