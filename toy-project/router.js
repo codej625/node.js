@@ -21,12 +21,12 @@ app.get("/", (req, res) => {
 
 app.use("/user", userController);
 
-app.listen(port, () => {/* console.log(`port: ${port}`); */});
-
-figlet(`odej625 Server Port: ${port}`, function (err, data) {
-  if (err) {
-    console.dir(err);
-    return;
-  }
-  console.log(data);
+app.listen(port, () => {
+  figlet(`odej625 Server Port: ${port}`, function (err, data) {
+    if (err) {
+      console.dir(err);
+      return;
+    }
+    console.log(data);
+  });
 });
