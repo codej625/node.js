@@ -6,7 +6,7 @@
       const wrap = document.querySelector("#wrap");
       const table = document.createElement("table");
 
-      /* 테이블 헤더 생성 */
+      // 테이블 헤더 생성
       const thead = document.createElement("thead");
       const headerRow = document.createElement("tr");
       ["ID", "Name", "Age", "Email"].forEach((headerText) => {
@@ -17,7 +17,7 @@
       thead.appendChild(headerRow);
       table.appendChild(thead);
 
-      /* 사용자 데이터 표시 */
+      // 사용자 데이터 표시
       const tbody = document.createElement("tbody");
       jsonData.forEach((user) => {
         const row = document.createElement("tr");
@@ -30,7 +30,7 @@
       });
       table.appendChild(tbody);
 
-      wrap.innerHTML = ''; /* 테이블 초기화 */
+      wrap.innerHTML = ''; // 테이블 초기화
       wrap.appendChild(table);
     } catch (err) {
       console.error("Error fetching users:", err);

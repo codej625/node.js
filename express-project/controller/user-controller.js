@@ -8,17 +8,8 @@ router.get("/:id", async (req, res) => {
   try {
     const user = await userService.getUser(req.params.id);
     res.json(user);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
   }
-});
-
-/* 사용자 조회 라우트 */
-router.get("/age/:age", async (req, res) => {
-  try {
-    const user = await userService.getItVarAge(req.params.age);
-    res.json(user);
-  } catch (error) {
+  catch (error) {
     res.status(500).json({ message: error.message });
   }
 });
