@@ -1,6 +1,6 @@
 import * as express from 'express';
 import { Cat } from './app.model';
-import { error } from 'console';
+
 const app: express.Express = express();
 const port: number = 8000;
 
