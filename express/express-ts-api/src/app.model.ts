@@ -1,5 +1,5 @@
-type CatType = {
-  id: string;
+export type CatType = {
+  id?: number;
   name: string;
   age: number;
   species: string;
@@ -9,7 +9,7 @@ type CatType = {
 
 export const Cat: CatType[] = [
   {
-    id: '1',
+    id: 1,
     name: 'Whiskers',
     age: 3,
     species: 'Persian',
@@ -17,7 +17,7 @@ export const Cat: CatType[] = [
     friends: 'Fluffy, Snowball'
   },
   {
-    id: '2',
+    id: 2,
     name: 'Mittens',
     age: 5,
     species: 'Siamese',
@@ -25,7 +25,7 @@ export const Cat: CatType[] = [
     friends: 'Shadow'
   },
   {
-    id: '3',
+    id: 3,
     name: 'Fluffy',
     age: 2,
     species: 'Maine Coon',
@@ -33,7 +33,7 @@ export const Cat: CatType[] = [
     friends: 'Whiskers, Mittens'
   },
   {
-    id: '4',
+    id: 4,
     name: 'Shadow',
     age: 4,
     species: 'Bengal',
@@ -41,7 +41,7 @@ export const Cat: CatType[] = [
     friends: 'Mittens, Snowball'
   },
   {
-    id: '5',
+    id: 5,
     name: 'Snowball',
     age: 1,
     species: 'Ragdoll',
