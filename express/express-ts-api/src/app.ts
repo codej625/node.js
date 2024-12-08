@@ -9,7 +9,7 @@ app.use(express.json());
 
 app.use((req: express.Request, res: express.Response, next: express.NextFunction) => {
   // Logs the request headers
-  console.log('Request logging -> ', req.headers);
+  console.log('\nRequest logging -> ', req.headers);
   next();
 });
 
