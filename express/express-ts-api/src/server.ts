@@ -18,6 +18,12 @@ class Server {
     return Server.instance;
   }
 
+  private setRouter(): void {
+    this.routers.forEach(router => {
+      this.app.use(router);
+    });
+  }
+
   private setMiddleware(): void {
     // Apply the middleware globally
     this.app.use(express.json());
@@ -34,12 +40,6 @@ class Server {
     this.app.use((req: express.Request, res: express.Response, next: express.NextFunction) => {
       console.error('HTTP 404');
       res.send('404 Page not found');
-    });
-  }
-
-  private setRouter(): void {
-    this.routers.forEach(router => {
-      this.app.use(router);
     });
   }
 
