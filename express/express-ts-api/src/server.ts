@@ -1,17 +1,24 @@
 import * as express from 'express';
+import routers from './router';
 
 class Server {
-  private app: express.Application;
-  private port: number;
-  private routers: express.Router[];
+  private portNumber: number;
+  private app: express.Application = express();
+  private routers: express.Router[] = routers;
+  private static instance: Server;
 
-  constructor(portNumber: number, routers: express.Router[]) {
-    this.app = express();
-    this.port = portNumber;
-    this.routers = routers;
+  constructor(port: number) {
+    this.portNumber = port;
   }
 
-  private setMiddleware() {
+  public static getInstance(port: number): Server {
+    if (!Server.instance) {
+      Server.instance = new Server(port);
+    }
+    return Server.instance;
+  }
+
+  private setMiddleware(): void {
     // Apply the middleware globally
     this.app.use(express.json());
 
@@ -30,18 +37,18 @@ class Server {
     });
   }
 
-  private setRouter() {
+  private setRouter(): void {
     this.routers.forEach(router => {
       this.app.use(router);
     });
   }
 
-  public listen() {
+  public listen(): void {
     this.setMiddleware();
 
     // Port number
-    this.app.listen(this.port, () => {
-      console.log(`App listening at http://localhost:${this.port}`);
+    this.app.listen(this.portNumber, () => {
+      console.log(`App listening at http://localhost:${this.portNumber}`);
     });
   }
 }
