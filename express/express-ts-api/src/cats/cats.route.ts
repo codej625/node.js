@@ -151,4 +151,38 @@ router.patch(('/cats/:id'), (req: Request, res: Response) => {
   }
 });
 
+// Delete one -> DELETE
+router.delete(('/cats/:id'), (req: Request, res: Response) => {
+  try {
+    const id: number = parseInt(req.params.id);
+    // Return value
+    let result: CatType[] | undefined;
+    let err: boolean = false;
+
+    Cats.forEach((cat, index) => {
+      if (cat.id === id) {
+        Cats.splice(index, 1);
+        err = true;
+      }
+    });
+
+    result = Cats;
+
+    if (!err) throw new Error('Cat not found');
+
+    res.status(200).send({
+      success: true,
+      data: { result }
+    });
+  }
+  catch (error: unknown) {
+    if (error instanceof Error) {
+      res.status(400).send({
+        success: false,
+        error: error.message
+      });
+    }
+  }
+});
+
 export default router;
