@@ -7,7 +7,7 @@ export type CatType = {
   friends: string;
 }
 
-export const Cat: CatType[] = [
+export const Cats: CatType[] = [
   {
     id: 1,
     name: 'Whiskers',
