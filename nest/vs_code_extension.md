@@ -54,4 +54,28 @@ VSC 설정에서 Bracket Pair Colorizer를 검색해서 체크 해준다.
 
 <br />
 
-6. Kite AI Code AutoComplete (코드 작업 시 인공지능 보조를 반는다.)
+6. Auto Close Tag (태그를 자동으로 닫아준다.)
+
+<br />
+
+7. Auto Rename Tag (태그 이름을 자동으로 바꿔준다.)
+
+<br />
+
+8. ESLint (Code formatter)
+
+<br />
+
+9. HTML CSS Support
+
+<br />
+
+10. Javascript (ES6) code snippets
+
+<br />
+
+11. Live Server
+
+<br />
+
+12. Markdown All in One
