@@ -108,7 +108,7 @@ module.exports = {
       },
     ],
     'no-console': 'warn', // 콘솔 사용 시 경고
-    'no-unused-vars': 'off', // 사용하지 않는 변수 체크 해제
+    'no-unused-vars': 'warn', // 사용하지 않는 변수 경고
     '@typescript-eslint/no-unused-vars': 'warn', // 타입스크립트에서 사용하지 않는 변수 경고
 
     ...
