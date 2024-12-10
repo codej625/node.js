@@ -47,6 +47,11 @@ Nest 프로젝트를 진행하면서
 
 5. Path intellisense (경로 작업 시 자동으로 경로를 찾아준다.)
 
+```
+241210 기준 Extension이 사라졌다.
+VSC 설정에서 Bracket Pair Colorizer를 검색해서 체크 해준다.
+```
+
 <br />
 
 6. Kite AI Code AutoComplete (코드 작업 시 인공지능 보조를 반는다.)
