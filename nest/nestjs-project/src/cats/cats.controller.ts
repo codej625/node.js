@@ -1,4 +1,19 @@
-import { HttpStatus, HttpCode, Controller, Param, Req, Res, Body, Get, Post, Put, Patch, Delete } from '@nestjs/common';
+import {
+  HttpStatus,
+  HttpException,
+  HttpCode,
+  Controller,
+  Param,
+  Req,
+  Res,
+  Body,
+  Get,
+  Post,
+  Put,
+  Patch,
+  Delete,
+  ParseIntPipe,
+} from '@nestjs/common';
 import { Request, Response } from 'express';
 import { CatsService } from './cats.service';
 
@@ -8,32 +23,34 @@ export class CatsController {
 
   @Post('/')
   @HttpCode(201) // 기본 상태값 설정
-  createCat(@Body() body: object, @Res() res: Response): void {
-    return;
+  createCat(@Body() body: Record<string, any>, @Res() res: Response): void {
+    res.json({ message: '' });
   }
 
   @Get('/')
+  @HttpCode(200)
   findAllCats(@Req() req: Request, @Res() res: Response): void {
-    res.status(HttpStatus.OK).json({ message: '' });
+    res.status(HttpStatus.OK).json({ message: process.env.DATABASE_USER });
   }
 
   @Get(':id')
-  findOneCat(@Param('id') id: string, @Res() res: Response): void {
+  @HttpCode(200)
+  findOneCat(@Param('id', ParseIntPipe) id: number, @Res() res: Response): void {
     res.status(HttpStatus.OK).json({ message: '' });
   }
 
   @Put(':id')
-  updateCat(@Body() body: object, @Res() res: Response): void {
+  updateCat(@Param('id', ParseIntPipe) id: number, @Body() body: Record<string, any>, @Res() res: Response): void {
     res.status(HttpStatus.OK).json({ message: '' });
   }
 
   @Patch(':id')
-  patchCat(@Body() body: object, @Res() res: Response): void {
+  patchCat(@Param('id', ParseIntPipe) id: number, @Body() body: Record<string, any>, @Res() res: Response): void {
     res.status(HttpStatus.OK).json({ message: '' });
   }
 
   @Delete(':id')
-  deleteCat(@Body() body: object, @Res() res: Response): void {
+  deleteCat(@Param('id', ParseIntPipe) id: number, @Body() body: Record<string, any>, @Res() res: Response): void {
     res.status(HttpStatus.OK).json({ message: '' });
   }
 }
