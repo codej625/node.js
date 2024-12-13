@@ -13,6 +13,8 @@ import {
   Patch,
   Delete,
   ParseIntPipe,
+  UseInterceptors,
+  UploadedFiles,
 } from '@nestjs/common';
 import { Request, Response } from 'express';
 import { CatsService } from './cats.service';

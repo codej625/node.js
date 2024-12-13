@@ -1,10 +1,16 @@
 import { Module } from '@nestjs/common';
 import { CatsController } from './cats.controller';
 import { CatsService } from './cats.service';
-import { ConfigModule } from '@nestjs/config';
+import { MulterModule } from '@nestjs/platform-express';
 
 @Module({
-  imports: [],
+  imports: [
+    MulterModule.registerAsync({
+      useFactory: () => ({
+        dest: './upload',
+      }),
+    }),
+  ],
   exports: [],
   controllers: [CatsController],
   providers: [CatsService],
