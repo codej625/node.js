@@ -1,19 +1,28 @@
-import { Controller, Post, Body, ValidationPipe } from '@nestjs/common';
+// src/auth/auth.controller.ts
+import { Controller, Post, Body, Headers, ValidationPipe } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { CreateUserDto } from './dto/create-user.dto';
-import { LoginUserDto } from './dto/login-user.dto';
+import { CreateUserDto } from '../common/dto/create-user.dto';
+import { LoginUserDto } from '../common/dto/login-user.dto';
 
 @Controller('auth')
 export class AuthController {
-  constructor(private readonly authService: AuthService) {}
+  constructor(private authService: AuthService) {}
 
+  // 회원가입
   @Post('register')
   async register(@Body(ValidationPipe) createUserDto: CreateUserDto) {
     return this.authService.register(createUserDto);
   }
 
+  // 로그인
   @Post('login')
   async login(@Body(ValidationPipe) loginUserDto: LoginUserDto) {
-    return this.authService.login(loginUserDto);
+    return this.authService.login(loginUserDto.email, loginUserDto.password);
+  }
+
+  // Access 토큰 재발급
+  @Post('refresh')
+  async refreshToken(@Headers('refresh-token') refreshToken: string) {
+    return this.authService.refreshAccessToken(refreshToken);
   }
 }
