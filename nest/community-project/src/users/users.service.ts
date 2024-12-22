@@ -9,10 +9,10 @@ export class UsersService {
   constructor(private prismaService: PrismaService) {}
 
   // 유저 찾기
-  public async findUser(loginUserDto: LoginUserDto) {
+  public async findUser(findUserDto: LoginUserDto | CreateUserDto) {
     // 유저 찾기
     const user = await this.prismaService.user.findUnique({
-      where: { email: loginUserDto.email },
+      where: { email: findUserDto.email },
     });
     if (!user) throw new UnauthorizedException('잘못된 이메일 또는 비밀번호입니다.');
 

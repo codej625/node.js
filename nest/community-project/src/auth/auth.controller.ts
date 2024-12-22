@@ -17,7 +17,7 @@ export class AuthController {
   // 로그인
   @Post('login')
   async login(@Body(ValidationPipe) loginUserDto: LoginUserDto) {
-    return this.authService.login(loginUserDto.email, loginUserDto.password);
+    return this.authService.login(loginUserDto);
   }
 
   // Access 토큰 재발급
