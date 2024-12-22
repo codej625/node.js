@@ -15,7 +15,6 @@ export class UsersController {
 
   @Get('/:id')
   async findUser(@Param() param: string) {
-    console.log(param);
     return '';
   }
 }

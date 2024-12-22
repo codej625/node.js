@@ -16,7 +16,7 @@ export class AuthService {
     private usersService: UsersService,
   ) {}
 
-  // 회원가입 메서드
+  // 회원가입
   public async register(createUserDto: CreateUserDto) {
     // 1) 이미 존재하는 유저인지 확인
     const existingUser = await this.usersService.findUser(createUserDto);
@@ -30,7 +30,7 @@ export class AuthService {
     return this.usersService.createUser(createUserDto);
   }
 
-  // 로그인 메서드
+  // 로그인
   public async login(loginUserDto: LoginUserDto) {
     // 1) 유저 찾기
     const user = await this.usersService.findUser(loginUserDto);
@@ -44,7 +44,7 @@ export class AuthService {
     const tokens = await this.generateTokens(user.id, user.email);
 
     // 4) 리프레시 토큰 저장
-    await this.updateRefreshTokenInDB(user.id, tokens.refreshToken);
+    await this.updateRefreshTokenInDB(user.email, tokens.refreshToken);
 
     // 5) 두 개의 토큰 리턴
     return tokens;
@@ -80,17 +80,23 @@ export class AuthService {
       throw new UnauthorizedException('다시 로그인해주세요.');
     }
   }
-  // 이메일로 유저 찾기
-  public async findUser(loginUserDto: LoginUserDto): Promise<any> {
-    return this.usersService.findUser(loginUserDto);
-  }
 
+  // Passport Strategy 유효성 검사
   public async validateUser(loginUserDto: LoginUserDto) {
     return this.usersService.validateUser(loginUserDto);
   }
 
-  // 토큰 생성 메서드
+  // 이메일로 유저 찾기
+  public async findUser(loginUserDto: LoginUserDto): Promise<any> {
+    const user = this.usersService.findUser(loginUserDto);
+    if (!user) throw new UnauthorizedException('잘못된 이메일 또는 비밀번호입니다.');
+
+    return user;
+  }
+
+  // 토큰 생성
   private async generateTokens(userId: number, email: string) {
+    // 1) Promise.all -> 여러 비동기 작업의 결과를 기다린 후, 결과를 한 번에 받는다.
     const [accessToken, refreshToken] = await Promise.all([
       this.jwtService.signAsync(
         { sub: userId, email },
@@ -107,23 +113,15 @@ export class AuthService {
         },
       ),
     ]);
-
+    // 2) 엑세스, 리프레시 토큰 리턴
     return {
       accessToken,
       refreshToken,
     };
   }
 
-  // 리프레시 토큰 DB 업데이트
-  private async updateRefreshTokenInDB(userId: number, refreshToken: string) {
-    const hashedRefreshToken: string = await bcrypt.hash(refreshToken, 10);
-
-    await this.prisma.user.update({
-      where: { id: userId },
-      data: {
-        refreshToken: hashedRefreshToken,
-        refreshTokenExpiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
-      },
-    });
+  // 리프레시 토큰 업데이트
+  private async updateRefreshTokenInDB(email: string, refreshToken: string) {
+    await this.usersService.updateRefreshTokenInDB(email, refreshToken);
   }
 }

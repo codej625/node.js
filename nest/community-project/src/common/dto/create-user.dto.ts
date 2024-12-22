@@ -1,6 +1,7 @@
 import { IsEmail, IsNotEmpty, MinLength } from 'class-validator';
+import { UserDto } from './user.dto';
 
-export class CreateUserDto {
+export class CreateUserDto extends UserDto {
   @IsEmail()
   email: string;
 
@@ -9,5 +10,5 @@ export class CreateUserDto {
   password: string;
 
   @IsNotEmpty()
-  name?: string;
+  name: string;
 }
