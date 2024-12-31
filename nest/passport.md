@@ -3,7 +3,8 @@
 <br />
 <br />
 
-* NestJS Passport
+- NestJS Passport
+
 ---
 
 ```
@@ -39,7 +40,6 @@ NestJS는 이를 @nestjs/passport 모듈을 통해 통합한다.
 <br />
 <br />
 
-
 2. Strategy 구현
 
 ```
@@ -57,7 +57,6 @@ https://docs.nestjs.com/recipes/passport#implementing-passport-strategies
 <br />
 <br />
 
-
 3. Guard
 
 ```
@@ -68,8 +67,6 @@ https://docs.nestjs.com/recipes/passport#implementing-passport-strategies
 
 주로 passport로 인증 전략을 만들어 가드에 전략을 사용할 수 있다.
 ```
-
-<br />
 
 ```ts
 // JWT 전략
@@ -105,8 +102,6 @@ PassportStrategy(Strategy, 'jwt')에서
 두 번째 파라미터 'jwt'는 해당 전략의 이름(name)을 지정하는 것이다.
 ```
 
-<br />
-
 ```ts
 @Controller('auth')
 export class AuthController {
@@ -130,8 +125,6 @@ export class AuthController {
 다른 방법으로는 서비스에서 구현하는 것이다.
 ```
 
-<br />
-
 ```ts
 // auth.module.ts 에서 설정
 
@@ -139,30 +132,28 @@ export class AuthController {
   imports: [
     // Passport 모듈 임포트
     PassportModule,
-    
+
     // JWT 모듈 설정
     JwtModule.register({
-      secret: 'your-secret-key', // 실제로는 환경변수에서 가져와야 함
-      signOptions: { 
-        expiresIn: '5m' // 액세스 토큰 만료시간
+      secret: "your-secret-key", // 실제로는 환경변수에서 가져와야 함
+      signOptions: {
+        expiresIn: "5m", // 액세스 토큰 만료시간
       },
     }),
-    
+
     // 다른 필요한 모듈들 (예: UserModule)
     UsersModule,
   ],
   providers: [
     AuthService,
-    LocalStrategy,  // 로컬 전략 등록
-    JwtStrategy,    // JWT 전략 등록
+    LocalStrategy, // 로컬 전략 등록
+    JwtStrategy, // JWT 전략 등록
   ],
   controllers: [AuthController],
   exports: [AuthService], // 다른 모듈에서 AuthService를 사용할 수 있게 export
 })
 export class AuthModule {}
 ```
-
-<br />
 
 ```ts
 // auth.service.ts 에서 설정
