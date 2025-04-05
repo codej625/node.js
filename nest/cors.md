@@ -9,7 +9,9 @@
 ```
 CORS는 웹 브라우저에서 다른 도메인 간에 자원을 공유할 수 있도록 허용하는 보안 메커니즘이다.
 
-기본적으로, 웹 브라우저는 동일 출처 정책 (Same-Origin Policy)에 따라 다른 도메인에서 오는 요청을 차단한다.
+기본적으로,
+웹 브라우저는 동일 출처 정책 (Same-Origin Policy)에 따라 다른 도메인에서 오는 요청을 차단한다.
+
 CORS는 이 정책을 완화하여 특정 조건 하에 다른 출처의 자원에 접근할 수 있도록 허용한다.
 ```
 
@@ -34,8 +36,11 @@ async function bootstrap() {
 
   // 또는 상세 옵션 설정
   app.enableCors({
-    origin: ['http://localhost:3000', 'https://yourapp.com'], // 허용할 도메인
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS', // 허용할 HTTP 메서드
+    origin: [
+      'http://localhost:3000',
+      'https://yourapp.com'
+    ], // 허용할 도메인
+    methods: 'GET, HEAD, PUT, PATCH, POST, DELETE, OPTIONS', // 허용할 HTTP 메서드
     credentials: true, // 쿠키 포함 여부
     allowedHeaders: 'Content-Type, Accept, Authorization', // 허용할 헤더
     maxAge: 3600, // preflight 요청 캐시 시간
@@ -46,6 +51,7 @@ async function bootstrap() {
 bootstrap();
 ```
 
+<br />
 <br />
 <br />
 
@@ -60,6 +66,7 @@ import { EnableCors } from '@nestjs/common';
   origin: 'http://localhost:3000',
   credentials: true,
 })
+
 export class ApiController {
   @Get()
   findAll() {
@@ -68,6 +75,7 @@ export class ApiController {
 }
 ```
 
+<br />
 <br />
 <br />
 
@@ -80,15 +88,14 @@ import { EnableCors } from '@nestjs/common';
 @Controller('api')
 export class ApiController {
   @Get()
-  @EnableCors({
-    origin: 'http://localhost:3000'
-  })
+  @EnableCors({ origin: 'http://localhost:3000' })
   findAll() {
     return ['item1', 'item2'];
   }
 }
 ```
 
+<br />
 <br />
 <br />
 
